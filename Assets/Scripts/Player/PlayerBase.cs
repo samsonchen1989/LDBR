@@ -27,6 +27,17 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    PlayerEquip equip;
+    public PlayerEquip PlayerEquip {
+        get {
+            if (equip == null) {
+                equip = GetComponent<PlayerEquip>();
+            }
+
+            return equip;
+        }
+    }
+
     PlayerTopDownCamera playerCamera;
 
     public PlayerTopDownCamera PlayerTopDownCamera {

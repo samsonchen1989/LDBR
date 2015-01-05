@@ -62,6 +62,29 @@ public class PlayerMoveController : PlayerBase
 
     void PlayerRotate()
     {
+        // Check fire direction first
+        FireDir fireDir = PlayerFireController.FireDirection;
+        if (fireDir != FireDir.NONE) {
+            switch(fireDir)
+            {
+            case FireDir.DOWN:
+                playerTrans.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                break;
+            case FireDir.LEFT:
+                playerTrans.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                break;
+            case FireDir.RIGHT:
+                playerTrans.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+                break;
+            case FireDir.UP:
+                playerTrans.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                break;
+            }
+
+            return;
+        }
+
+        // If no fire, rotate depending on move direction
         switch (moveDir)
         {
         case MoveDir.DOWN:
@@ -100,7 +123,8 @@ public class PlayerMoveController : PlayerBase
             keyS = 0;
         }
 
-        inputKey = (((((keyA << 1) | keyD) << 1) | keyW) << 1) | keyS;
+        //inputKey = (((((keyA << 1) | keyD) << 1) | keyW) << 1) | keyS;
+        inputKey = (keyA << 3) | (keyD << 2) | (keyW << 1) | keyS;
 
         switch(inputKey) {
         case 0:

@@ -7,6 +7,13 @@ public class Bullet : MonoBehaviour
     private Vector3 moveDir;
     private float damage;
 
+    public float Damage
+    {
+        get {
+            return damage;
+        }
+    }
+
     Transform bulletTrans;
 
     public void Initialize(float speed, Vector3 moveDir, float damage)
@@ -26,5 +33,12 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         bulletTrans.position = bulletTrans.position + moveDir.normalized * speed * Time.deltaTime;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag != "zombie") {
+            GameObject.Destroy(gameObject);
+        }
     }
 }
