@@ -49,4 +49,16 @@ public class PlayerBase : MonoBehaviour
             return playerCamera;
         }
     }
+
+    PlayerState playerState;
+
+    public PlayerState PlayerState {
+        get {
+            if (playerState == null) {
+                playerState = GetComponent<PlayerState>();
+            }
+
+            return playerState;
+        }
+    }
 }
