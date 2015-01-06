@@ -3,7 +3,7 @@ LDBR
 
 **Last Day Before Retirement**
 
-At the last day before Samson's retirement, something wrong happens in this small town.
+At the last day before Samson's retirement, something goes wrong in this small town.
 
 Voxel mod from [mikelovesrobots' great free voxel works](https://github.com/mikelovesrobots/mmmm)
 
