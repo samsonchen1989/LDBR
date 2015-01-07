@@ -6,12 +6,19 @@ public class PlayerState : PlayerBase
     public GameObject playerMod;
     private Material playerMaterial;
 
+    float maxHealth = 100;
     float health = 100;
     bool inVincible = false;
 
     public float Health {
         get {
             return health;
+        }
+    }
+
+    public float MaxHelath {
+        get {
+            return maxHealth;
         }
     }
 
@@ -25,6 +32,12 @@ public class PlayerState : PlayerBase
         health -= damage;
         inVincible = true;
         StartCoroutine(InjuredFlash());
+    }
+
+    // Override Awake() incase PlayerBase's Awake() called multiple times
+    void Awake()
+    {
+        
     }
 
     // Use this for initialization

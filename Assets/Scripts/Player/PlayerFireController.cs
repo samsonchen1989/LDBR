@@ -24,6 +24,12 @@ public class PlayerFireController : PlayerBase
 
     Vector3 fireVector = Vector3.zero;
 
+    // Override Awake() incase PlayerBase's Awake() called multiple times
+    void Awake()
+    {
+        
+    }
+
     // Use this for initialization
     void Start()
     {

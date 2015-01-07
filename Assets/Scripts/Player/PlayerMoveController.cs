@@ -30,6 +30,12 @@ public class PlayerMoveController : PlayerBase
     
     #endregion
 
+    // Override Awake() incase PlayerBase's Awake() called multiple times
+    void Awake()
+    {
+        
+    }
+
     // Use this for initialization
     void Start()
     {

@@ -8,6 +8,19 @@ public class PlayerEquip : PlayerBase
 
     WeaponGun currentWeapon;
 
+    public WeaponGun CurrentWeapon
+    {
+        get {
+            return currentWeapon;
+        }
+    }
+
+    // Override Awake() incase PlayerBase's Awake() called multiple times
+    void Awake()
+    {
+
+    }
+
     // Use this for initialization
     void Start()
     {

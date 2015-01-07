@@ -9,7 +9,7 @@ public class Zombie : Enemy {
     private NavMeshAgent agent;
     private GameObject attackTarget;
 
-    private float attackRange = 1.1f;
+    private float attackRange = 1.05f;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +36,7 @@ public class Zombie : Enemy {
     // Todo, read from config file
     void InitZombieData()
     {
+        isDead = false;
         life = 30f;
         attackDamage = 20f;
         attackInternal = 3f;
@@ -53,6 +54,8 @@ public class Zombie : Enemy {
 
     protected override void Die()
     {
+        isDead = true;
+
         // Show crash objects and hide enemy body
         crashObject.SetActive(true);
         GameObject.Destroy(enemyObject);

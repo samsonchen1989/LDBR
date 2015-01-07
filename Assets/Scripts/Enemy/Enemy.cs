@@ -11,12 +11,19 @@ public class Enemy : MonoBehaviour
     protected float attackTimer = 0;
     protected bool canAttack = false;
 
+    protected bool isDead;
+
     protected virtual void Die() {}
 
     protected virtual bool Attack() { return false; }
 
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (!canAttack) {
             attackTimer += Time.deltaTime;
             if (attackTimer >= attackInternal) {

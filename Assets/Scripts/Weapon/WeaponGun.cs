@@ -3,6 +3,8 @@ using System.Collections;
 
 public class WeaponGun
 {
+    protected string name;
+
     protected float fireInterval;
     private float fireTimer = 0;
     bool startFireTimer = false;
@@ -21,6 +23,13 @@ public class WeaponGun
     protected int ammoLeft;
 
     protected bool canFire;
+
+    public string Name
+    {
+        get {
+            return name;
+        }
+    }
 
     public float FireInterval
     {
@@ -128,8 +137,6 @@ public class WeaponGun
                 reloadTimer = 0f;
             }
         }
-
-        //Debug.Log("clipLeft/ammoLeft:" + clipLeft + "/" + ammoLeft);
     }
 }
 
@@ -138,6 +145,8 @@ public class Pistol : WeaponGun
     public Pistol()
     {
         // Todo, read from json config file
+        name = "Pistol";
+
         fireInterval = 0.8f;
         reloadInterval = 2f;
 
@@ -145,8 +154,8 @@ public class Pistol : WeaponGun
         bulletSpeed = 8f;
 
         clipSize = 10;
-        clipLeft = 10;
-        ammoLeft = 10;
+        clipLeft = 1;
+        ammoLeft = 0;
         canFire = true;
     }
 }

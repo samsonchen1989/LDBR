@@ -3,6 +3,28 @@ using System.Collections;
 
 public class PlayerBase : MonoBehaviour
 {
+    private static PlayerBase instance;
+
+    public static PlayerBase Instance
+    {
+        get {
+            if (instance == null) {
+                Debug.LogError("Fail to find PlayerBase instance");
+            }
+
+            return instance;
+        }
+    }
+
+    void Awake()
+    {
+        if (instance != null) {
+            Debug.LogError("Only one instance of PlayerBase is allowwed.");
+            return;
+        }
+
+        instance = this;
+    }
 
     PlayerMoveController controller;
 

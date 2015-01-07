@@ -17,6 +17,12 @@ public class PlayerTopDownCamera : PlayerBase
     Transform cameraTransform;
     Transform playerTransform;
 
+    // Override Awake() incase PlayerBase's Awake() called multiple times
+    void Awake()
+    {
+        
+    }
+
     // Use this for initialization
     void Start()
     {
