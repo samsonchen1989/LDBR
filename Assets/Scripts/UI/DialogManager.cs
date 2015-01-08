@@ -88,6 +88,10 @@ public class DialogManager : MonoBehaviour
         Time.timeScale = 1;
         trigger.TiggerEnable = true;
 
+        if (trigger.ShowOnce) {
+            trigger.gameObject.SetActive(false);
+        }
+
         yield return null;
     }
 

@@ -25,6 +25,8 @@ public class Trigger : MonoBehaviour {
         }
     }
 
+    public bool needSpaceButton = false;
+
     void OnTriggerEnter(Collider other)
     {
         //Debug.Log("in, tag:" + other.gameObject.tag);
