@@ -40,6 +40,17 @@ public class PlayerEquip : PlayerBase
             currentWeapon.Shoot(position, fireDir);
         }
     }
+
+    public void Reload()
+    {
+        if (currentWeapon == null) {
+            return;
+        }
+
+        if (currentWeapon.State != WeaponGunState.RELOADING) {
+            currentWeapon.Reload();
+        }
+    }
     
     // Update is called once per frame
     void Update()

@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "bullet") {
+        if (collision.gameObject.tag == "Bullet") {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             if (bullet == null) {
                 return;

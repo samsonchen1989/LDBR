@@ -17,8 +17,6 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        //EventTriggerListener.Get(healthText.gameObject).onEnter = Enter;
-
         playerBase = PlayerBase.Instance;
     }
     
@@ -27,8 +25,12 @@ public class UIManager : MonoBehaviour
     {
         healthText.text = string.Format("HP: {0}/{1}", playerBase.PlayerState.Health,
                                         playerBase.PlayerState.MaxHelath);
-        weaponText.text = string.Format("{0}: {1}/{2}", playerBase.PlayerEquip.CurrentWeapon.Name,
-                                      playerBase.PlayerEquip.CurrentWeapon.ClipLeft,
-                                      playerBase.PlayerEquip.CurrentWeapon.AmmoLeft);
+        if (playerBase.PlayerEquip.CurrentWeapon.State == WeaponGunState.RELOADING) {
+            weaponText.text = string.Format("{0}: Reloading", playerBase.PlayerEquip.CurrentWeapon.Name);
+        } else {
+            weaponText.text = string.Format("{0}: {1}/{2}", playerBase.PlayerEquip.CurrentWeapon.Name,
+                                            playerBase.PlayerEquip.CurrentWeapon.ClipLeft,
+                                            playerBase.PlayerEquip.CurrentWeapon.AmmoLeft);
+        }
     }
 }

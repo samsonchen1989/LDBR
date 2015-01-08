@@ -15,8 +15,30 @@ public class DialogManager : MonoBehaviour
     public GameObject dialogHeadRight;
     public GameObject dialogHint;
 
+    // Minimum show time between each dialog
     public float dialogInternal;
     float dialogTimer = 0;
+    
+    private static DialogManager instance;
+    public static DialogManager Instance
+    {
+        get {
+            if (instance == null) {
+                Debug.LogError("Fail to get DialogManager instance");
+            }
+
+            return instance;
+        }
+    }
+
+    void Awake()
+    {
+        if (instance != null) {
+            Debug.LogError("Only one instance of DialogManager is allowwed");
+        }
+
+        instance = this;
+    }
 
     // Use this for initialization
     void Start()
@@ -25,39 +47,20 @@ public class DialogManager : MonoBehaviour
             Debug.LogError("Please assign dialog gameObject first.");
             return;
         }
-
-        // Test
-        List<DialogData> data = new List<DialogData>();
-        data.Add(new DialogData("head_player", "Are you OK ?", DialogType.DIALOG_HEAD_LEFT));
-        data.Add(new DialogData("head_zombie", "Uh ...", DialogType.DIALOG_HEAD_RIGHT));
-        data.Add(new DialogData("head_player", "Oh no, freeze and hands up !", DialogType.DIALOG_HEAD_LEFT));
-        data.Add(new DialogData("head_zombie", "Uhhhhhhhhhh ...", DialogType.DIALOG_HEAD_RIGHT));
-        data.Add(new DialogData("head_player", "Shit, I say FREEZE !", DialogType.DIALOG_HEAD_LEFT));
-
-        StartCoroutine(PlayDialogData(data));
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
-    
     }
 
-    IEnumerator WaitForKeyUp(KeyCode keycode)
+    public void PlayDialogData(List<DialogData> datas, Trigger trigger)
     {
-        // Wait until key "Space" enter up and timer passed internal time
-        while (!(Input.GetKeyUp(keycode) && (dialogTimer > dialogInternal))) {
-            dialogTimer += Time.unscaledDeltaTime;
-            yield return null;
-        }
-
-        dialogTimer = 0f;
+        StartCoroutine(PlayDialogCoroutine(datas, trigger));
     }
 
-    IEnumerator PlayDialogData(List<DialogData> datas)
+    public IEnumerator PlayDialogCoroutine(List<DialogData> datas, Trigger trigger)
     {
+        trigger.TiggerEnable = false;
+        // Pause game
         Time.timeScale = 0;
-        dialogTimer = dialogInternal;
+
+        dialogTimer = 0;
 
         GameObject dialog = dialogHeadLeft;
         foreach (DialogData data in datas) {
@@ -70,15 +73,32 @@ public class DialogManager : MonoBehaviour
             }
 
             dialog.SetActive(true);
-            dialog.GetComponent<Dialog>().SetImage(data.ImageName);
-            dialog.GetComponent<Dialog>().SetText(data.Text);
+            if (dialog == dialogHint) {
+                dialog.GetComponent<Dialog>().SetText(data.Text);
+            } else {
+                dialog.GetComponent<Dialog>().SetImage(data.ImageName);
+                dialog.GetComponent<Dialog>().SetText(data.Text);
+            }
 
             yield return StartCoroutine(WaitForKeyUp(KeyCode.Space));
             dialog.SetActive(false);
         }
 
+        // Resume game
         Time.timeScale = 1;
+        trigger.TiggerEnable = true;
 
         yield return null;
+    }
+
+    IEnumerator WaitForKeyUp(KeyCode keycode)
+    {
+        // Wait until key "Space" enter up and timer passed internal time
+        while (!(Input.GetKeyUp(keycode) && (dialogTimer > dialogInternal))) {
+            dialogTimer += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        
+        dialogTimer = 0f;
     }
 }

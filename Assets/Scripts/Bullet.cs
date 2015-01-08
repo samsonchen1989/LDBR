@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "zombie") {
+        if (collision.gameObject.tag != "Zombie") {
             GameObject.Destroy(gameObject);
         }
     }

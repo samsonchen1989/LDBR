@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum WeaponGunState
+{
+    IDLE,
+    RELOADING
+}
+
 public class WeaponGun
 {
     protected string name;
@@ -23,6 +29,8 @@ public class WeaponGun
     protected int ammoLeft;
 
     protected bool canFire;
+
+    protected WeaponGunState state = WeaponGunState.IDLE;
 
     public string Name
     {
@@ -72,6 +80,12 @@ public class WeaponGun
         }
     }
 
+    public WeaponGunState State {
+        get {
+            return state;
+        }
+    }
+
     public bool CanFire {
         get {
             return canFire;
@@ -82,8 +96,29 @@ public class WeaponGun
         }
     }
 
+    /* Auto Reload or not?
     public void Shoot(Vector3 position, Vector3 dir)
     {
+        if (clipLeft > 0) {
+            ObjectFactory.SpawnBullet(position, dir, bulletSpeed, bulletDamage);
+            clipLeft--;
+            if (clipLeft == 0) {
+                Reload();
+            } else {
+                canFire = false;
+                startFireTimer = true;
+            }
+        }
+    }
+    */
+
+    public void Shoot(Vector3 position, Vector3 dir)
+    {
+        if (clipLeft < 0) {
+            Debug.LogError("ClipLeft is less than zero.");
+            return;
+        }
+
         if (clipLeft == 0) {
             Reload();
         } else {
@@ -107,6 +142,8 @@ public class WeaponGun
 
         canFire = false;
         startReloadTimer = true;
+
+        state = WeaponGunState.RELOADING;
 
         int ammoNeeded = clipSize - clipLeft;
         if (ammoLeft <= ammoNeeded) {
@@ -132,6 +169,8 @@ public class WeaponGun
         if (startReloadTimer) {
             reloadTimer += timeDelta;
             if (reloadTimer > reloadInterval) {
+                state = WeaponGunState.IDLE;
+
                 canFire = true;
                 startReloadTimer = false;
                 reloadTimer = 0f;
@@ -154,8 +193,8 @@ public class Pistol : WeaponGun
         bulletSpeed = 8f;
 
         clipSize = 10;
-        clipLeft = 1;
-        ammoLeft = 0;
+        clipLeft = 5;
+        ammoLeft = 10;
         canFire = true;
     }
 }

@@ -25,9 +25,4 @@ public class Dialog : MonoBehaviour {
     {
         dialogText.text = text;
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

@@ -39,6 +39,10 @@ public class PlayerFireController : PlayerBase
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.R)) {
+            PlayerEquip.Reload();
+        }
+
         int keyUp = Input.GetKey(KeyCode.UpArrow) ? 1 : 0;
         int keyRight = Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
         int keyDown = Input.GetKey(KeyCode.DownArrow) ? 1 : 0;

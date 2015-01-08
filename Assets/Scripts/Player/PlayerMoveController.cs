@@ -14,11 +14,20 @@ enum MoveDir
     STILL
 }
 
+public enum FaceDir
+{
+    UP,
+    RIGHT,
+    DOWN,
+    LEFT
+}
+
 public class PlayerMoveController : PlayerBase
 {
     Transform playerTrans;
     Rigidbody phyBody;
     MoveDir moveDir = MoveDir.STILL;
+    FaceDir faceDir = FaceDir.DOWN;
 
     float inputHorizon;
     float inputVertical;
@@ -29,6 +38,13 @@ public class PlayerMoveController : PlayerBase
     const float MoveSpeed = 3f;
     
     #endregion
+
+    public FaceDir FaceDirection
+    {
+        get {
+            return faceDir;
+        }
+    }
 
     // Override Awake() incase PlayerBase's Awake() called multiple times
     void Awake()
@@ -75,15 +91,19 @@ public class PlayerMoveController : PlayerBase
             {
             case FireDir.DOWN:
                 playerTrans.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                faceDir = FaceDir.DOWN;
                 break;
             case FireDir.LEFT:
                 playerTrans.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                faceDir = FaceDir.LEFT;
                 break;
             case FireDir.RIGHT:
                 playerTrans.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+                faceDir = FaceDir.RIGHT;
                 break;
             case FireDir.UP:
                 playerTrans.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                faceDir = FaceDir.UP;
                 break;
             }
 
@@ -97,17 +117,21 @@ public class PlayerMoveController : PlayerBase
         case MoveDir.DOWN_LEFT:
         case MoveDir.DOWN_RIGHT:
             playerTrans.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            faceDir = FaceDir.DOWN;
             break;
         case MoveDir.UP:
         case MoveDir.UP_LEFT:
         case MoveDir.UP_RIGHT:
             playerTrans.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            faceDir = FaceDir.UP;
             break;
         case MoveDir.LEFT:
             playerTrans.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            faceDir = FaceDir.LEFT;
             break;
         case MoveDir.RIGHT:
             playerTrans.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            faceDir = FaceDir.RIGHT;
             break;
         default:
             break;
