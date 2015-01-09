@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (healthText == null || weaponText == null) {
+        if (healthText == null || weaponText == null || weaponText == null) {
             Debug.LogError("Please assign text gameObject first.");
             return;
         }

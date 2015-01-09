@@ -27,9 +27,18 @@ public class Trigger : MonoBehaviour {
 
     public bool needSpaceButton = false;
 
+    // If true, broadcast a message when dialog is over
+    public bool broadcast = false;
+
+    public bool Broadcast
+    {
+        get {
+            return broadcast;
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("in, tag:" + other.gameObject.tag);
         if (other.gameObject.tag == "PlayerTrigger") {
             triggerEnable = true;
         }
@@ -37,7 +46,6 @@ public class Trigger : MonoBehaviour {
     
     void OnTriggerExit(Collider other)
     {
-        //Debug.Log("out, tag:" + other.gameObject.tag);
         if (other.gameObject.tag == "PlayerTrigger") {
             triggerEnable = false;
         }

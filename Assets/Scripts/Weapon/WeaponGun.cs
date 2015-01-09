@@ -183,7 +183,7 @@ public class Pistol : WeaponGun
 {
     public Pistol()
     {
-        // Todo, read from json config file
+        // Todo, read from xml/json config file
         name = "Pistol";
 
         fireInterval = 0.8f;
@@ -195,6 +195,26 @@ public class Pistol : WeaponGun
         clipSize = 10;
         clipLeft = 5;
         ammoLeft = 10;
+        canFire = true;
+    }
+}
+
+public class Rifle : WeaponGun
+{
+    // Todo, read from xml/json config file
+    public Rifle()
+    {
+        name = "Rifle";
+        
+        fireInterval = 0.2f;
+        reloadInterval = 2f;
+        
+        bulletDamage = 15f;
+        bulletSpeed = 12f;
+        
+        clipSize = 30;
+        clipLeft = 30;
+        ammoLeft = 60;
         canFire = true;
     }
 }

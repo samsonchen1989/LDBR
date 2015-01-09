@@ -40,13 +40,20 @@ public class DialogDatabase : MonoBehaviour
         data.Add(new DialogData("head_player", "Oh no, freeze and hands up !", DialogType.DIALOG_HEAD_LEFT));
         data.Add(new DialogData("head_zombie", "Uhhhhhhhhhh ...", DialogType.DIALOG_HEAD_RIGHT));
         data.Add(new DialogData("head_player", "Shit, I say FREEZE !", DialogType.DIALOG_HEAD_LEFT));
-
         dialogDatabase.Add("dialog1", data);
+
+        data = new List<DialogData>();
+        data.Add(new DialogData("head_player", "What happened here ?", DialogType.DIALOG_HEAD_LEFT));
+        data.Add(new DialogData("head_amy", "The Undead ...\nEverything is out of control ...", DialogType.DIALOG_HEAD_RIGHT));
+        data.Add(new DialogData("head_player", "I will take you to hospital.", DialogType.DIALOG_HEAD_LEFT));
+        data.Add(new DialogData("head_amy", "I can not make it ...", DialogType.DIALOG_HEAD_RIGHT));
+        data.Add(new DialogData("head_amy", "Watch out, they are coming!\nHold this gun...", DialogType.DIALOG_HEAD_RIGHT));
+        data.Add(new DialogData(null, "You get rifle.", DialogType.DIALOG_HINT));
+        dialogDatabase.Add("dialog2", data);
 
         data = new List<DialogData>();
         data.Add(new DialogData(null, "Door locked", DialogType.DIALOG_HINT));
         data.Add(new DialogData(null, "A key is needed", DialogType.DIALOG_HINT));
-
         dialogDatabase.Add("hint1", data);
     }
 

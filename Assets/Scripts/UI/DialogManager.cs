@@ -49,12 +49,12 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    public void PlayDialogData(List<DialogData> datas, Trigger trigger)
+    public void PlayDialogData(string name, List<DialogData> datas, Trigger trigger)
     {
-        StartCoroutine(PlayDialogCoroutine(datas, trigger));
+        StartCoroutine(PlayDialogCoroutine(name, datas, trigger));
     }
 
-    public IEnumerator PlayDialogCoroutine(List<DialogData> datas, Trigger trigger)
+    public IEnumerator PlayDialogCoroutine(string dialogName, List<DialogData> datas, Trigger trigger)
     {
         trigger.TiggerEnable = false;
         // Pause game
@@ -87,6 +87,10 @@ public class DialogManager : MonoBehaviour
         // Resume game
         Time.timeScale = 1;
         trigger.TiggerEnable = true;
+
+        if (trigger.Broadcast == true) {
+            Messenger.Invoke(dialogName);
+        }
 
         if (trigger.ShowOnce) {
             trigger.gameObject.SetActive(false);

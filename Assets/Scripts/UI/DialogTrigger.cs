@@ -32,10 +32,10 @@ public class DialogTrigger : Trigger
 
         if (needSpaceButton) {
             if (Input.GetKey(KeyCode.Space)) {
-                DialogManager.Instance.PlayDialogData(data, this);
+                DialogManager.Instance.PlayDialogData(dialogName, data, this);
             }
         } else {
-            DialogManager.Instance.PlayDialogData(data, this);
+            DialogManager.Instance.PlayDialogData(dialogName, data, this);
         }
     }
 }
