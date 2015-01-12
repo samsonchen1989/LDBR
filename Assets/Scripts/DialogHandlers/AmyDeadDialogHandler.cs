@@ -4,6 +4,7 @@ using System.Collections;
 public class AmyDeadDialogHandler : MonoBehaviour
 {
     public GameObject zombieSpawner;
+    int lootItemID = 0;
 
     string listenDialog = "dialog2";
 
@@ -27,6 +28,14 @@ public class AmyDeadDialogHandler : MonoBehaviour
 
     void AmyDeadHandler()
     {
+        // Add loot
+        GameObject itemObject = ItemPrefabsDefinition.ItemClone(lootItemID).itemObject;
+        if (itemObject == null) {
+            return;
+        }
+
+        GameObject.Instantiate(itemObject, this.gameObject.transform.position, Quaternion.identity);
+
         PlayerBase.Instance.PlayerEquip.ReplaceSecondWeapon(new Rifle());
         zombieSpawner.GetComponent<Spawner>().StartSpawner();
     }

@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Zombie : Enemy {
+public class Zombie : Enemy
+{
 
     public GameObject enemyObject;
     public GameObject crashObject;
-
     private NavMeshAgent agent;
     private GameObject attackTarget;
-
     private float attackRange = 1.05f;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         if (enemyObject == null || crashObject == null) {
             Debug.LogError("Fail to find Enemy game object");
             return;
@@ -31,7 +31,7 @@ public class Zombie : Enemy {
         }
 
         InitZombieData();
-	}
+    }
 
     // Todo, read from config file
     void InitZombieData()
@@ -41,14 +41,14 @@ public class Zombie : Enemy {
         attackDamage = 20f;
         attackInternal = 3f;
     }
-	
+    
     IEnumerator DestroySelf()
     {
         // Cap collider used to blow up crash objects,
         // disable it after a few frames
         yield return new WaitForSeconds(0.1f);
         this.collider.enabled = false;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f);
         GameObject.Destroy(gameObject);
     }
 
