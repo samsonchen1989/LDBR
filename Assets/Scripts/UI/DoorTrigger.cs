@@ -47,7 +47,7 @@ public class DoorTrigger : Trigger
 
                     this.enabled = false;
                     this.gameObject.AddComponent<Portal>().targetTrans = portalTrans;
-                    Inventory.Instance.Remove(keyItemID, 0);
+                    Inventory.Instance.Remove(keyItemID, 1);
                 }
 
                 DialogManager.Instance.PlayDialogData(dialogName, data, this);

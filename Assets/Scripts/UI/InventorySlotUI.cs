@@ -40,11 +40,9 @@ public class InventorySlotUI : MonoBehaviour
     void RefreshSlot()
     {
         stack = Inventory.Instance.inventory[slotID];
-
-        if (stack != null) {
+        if (stack != null && stack.num > 0) {
             image.gameObject.SetActive(true);
             image.texture = Resources.Load("Icon/" + stack.item.itemName) as Texture;
-            //Debug.Log("id:" + slotID + ", stack item name:" + stack.item.itemName);
         } else {
             image.gameObject.SetActive(false);
         }

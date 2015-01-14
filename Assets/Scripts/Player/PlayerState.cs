@@ -9,6 +9,7 @@ public class PlayerState : PlayerBase
     float maxHealth = 100;
     float health = 100;
     int gold = 0;
+
     bool inVincible = false;
 
     public float Health {
