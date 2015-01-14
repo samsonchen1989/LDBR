@@ -85,7 +85,7 @@ public class Inventory : MonoBehaviour {
 
         // Add to existed item stack complete, return null(nothing left)
         if (stack.num == 0) {
-            InventoryChanged();
+            Messenger.Invoke(MyEventType.INVENTORY_CHANGED);
             return null;
         }
 
@@ -104,12 +104,12 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < inventory.Count; i++) {
             if (inventory[i] == null) {
                 inventory[i] = stack;
-                InventoryChanged();
+                Messenger.Invoke(MyEventType.INVENTORY_CHANGED);
                 return null;
             }
         }
 
-        InventoryChanged();
+        Messenger.Invoke(MyEventType.INVENTORY_CHANGED);
         //return what's left
         return stack;
     }
@@ -127,7 +127,7 @@ public class Inventory : MonoBehaviour {
             inventory[pos] = null;
         }
 
-        InventoryChanged();
+        Messenger.Invoke(MyEventType.INVENTORY_CHANGED);
         return newSt;
     }
 
@@ -135,7 +135,7 @@ public class Inventory : MonoBehaviour {
     {
         ItemStack stack = inventory[pos];
         inventory[pos] = null;
-        InventoryChanged();
+        Messenger.Invoke(MyEventType.INVENTORY_CHANGED);
         return stack;
     }
 
@@ -158,7 +158,7 @@ public class Inventory : MonoBehaviour {
             }
 
             if (leftNum == 0) {
-                InventoryChanged();
+                Messenger.Invoke(MyEventType.INVENTORY_CHANGED);
                 return true;
             }
         }
@@ -183,7 +183,7 @@ public class Inventory : MonoBehaviour {
             }
             
             if (leftNum == 0) {
-                InventoryChanged();
+                Messenger.Invoke(MyEventType.INVENTORY_CHANGED);
                 return true;
             }
         }
@@ -223,8 +223,8 @@ public class Inventory : MonoBehaviour {
             swapItemStack = null;
             swapSlotId = -1;
         }
-        
-        InventoryChanged();
+
+        Messenger.Invoke(MyEventType.INVENTORY_CHANGED);
     }
 
     public int GetItemCount(int itemID)

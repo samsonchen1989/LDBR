@@ -24,15 +24,15 @@ public class Portal : MonoBehaviour
         portalEnabled = true;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
         if (portalEnabled == false) {
             return;
         }
 
-        if (collision.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
         {
-            collision.gameObject.transform.position = targetTrans.position;
+            collider.gameObject.transform.position = targetTrans.position;
         }
     }
 }

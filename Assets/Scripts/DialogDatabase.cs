@@ -54,7 +54,11 @@ public class DialogDatabase : MonoBehaviour
         data = new List<DialogData>();
         data.Add(new DialogData(null, "Door locked", DialogType.DIALOG_HINT));
         data.Add(new DialogData(null, "A key is needed", DialogType.DIALOG_HINT));
-        dialogDatabase.Add("hint1", data);
+        dialogDatabase.Add("doorhint1", data);
+
+        data = new List<DialogData>();
+        data.Add(new DialogData(null, "Use key to open it", DialogType.DIALOG_HINT));
+        dialogDatabase.Add("doorhint2", data);
     }
 
     public List<DialogData> GetDialog(string dialogName)

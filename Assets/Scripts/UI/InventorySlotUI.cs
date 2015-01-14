@@ -14,6 +14,16 @@ public class InventorySlotUI : MonoBehaviour
         slotID = id;
     }
 
+    void OnEnable()
+    {
+        Messenger.AddListener(MyEventType.INVENTORY_CHANGED, RefreshSlot);
+    }
+
+    void OnDisable()
+    {
+        Messenger.RemoveListener(MyEventType.INVENTORY_CHANGED, RefreshSlot);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -34,14 +44,9 @@ public class InventorySlotUI : MonoBehaviour
         if (stack != null) {
             image.gameObject.SetActive(true);
             image.texture = Resources.Load("Icon/" + stack.item.itemName) as Texture;
-            Debug.Log("id:" + slotID + ", stack item name:" + stack.item.itemName);
+            //Debug.Log("id:" + slotID + ", stack item name:" + stack.item.itemName);
         } else {
             image.gameObject.SetActive(false);
         }
-    }
-
-    void OnDestroy()
-    {
-        Inventory.Instance.InventoryChanged -= RefreshSlot;
     }
 }
