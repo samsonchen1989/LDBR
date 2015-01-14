@@ -48,6 +48,7 @@ public class Zombie : Enemy
         // disable it after a few frames
         yield return new WaitForSeconds(0.1f);
         this.collider.enabled = false;
+        ObjectFactory.SpawnGold(this.transform.position);
         yield return new WaitForSeconds(5f);
         GameObject.Destroy(gameObject);
     }

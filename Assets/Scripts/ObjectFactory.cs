@@ -7,6 +7,7 @@ public class ObjectFactory : MonoBehaviour
 
     // GameObject to spawn
     GameObject bulletPrefab;
+    GameObject goldPrefab;
 
     void Awake()
     {
@@ -22,7 +23,12 @@ public class ObjectFactory : MonoBehaviour
     {
         bulletPrefab = Resources.Load("pistol_bullet") as GameObject;
         if (bulletPrefab == null) {
-            Debug.LogError("Fail to find pistol bullet gameobject.");
+            Debug.LogError("Fail to find pistol bullet game object.");
+        }
+
+        goldPrefab = Resources.Load("Gold") as GameObject;
+        if (goldPrefab == null) {
+            Debug.LogError("Fail to find gold game object");
         }
     }
 
@@ -35,5 +41,10 @@ public class ObjectFactory : MonoBehaviour
         }
 
         return bullet;
+    }
+
+    public static void SpawnGold(Vector3 position)
+    {
+        GameObject.Instantiate(instance.goldPrefab, position, Quaternion.Euler(0, 0, 0));
     }
 }

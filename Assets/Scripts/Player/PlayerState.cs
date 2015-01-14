@@ -8,6 +8,7 @@ public class PlayerState : PlayerBase
 
     float maxHealth = 100;
     float health = 100;
+    int gold = 0;
     bool inVincible = false;
 
     public float Health {
@@ -19,6 +20,12 @@ public class PlayerState : PlayerBase
     public float MaxHelath {
         get {
             return maxHealth;
+        }
+    }
+
+    public int Gold {
+        get {
+            return gold;
         }
     }
 
@@ -50,24 +57,25 @@ public class PlayerState : PlayerBase
 
         playerMaterial = playerMod.GetComponent<MeshRenderer>().material;
     }
-    
-    // Update is called once per frame
-    void Update()
-    {
-    
-    }
 
     IEnumerator InjuredFlash()
     {
         for (int i = 0; i < 3; i++) {
             playerMaterial.color = Color.red;
-            //playerMaterial.SetColor("Main Color", Color.red);
             yield return new WaitForSeconds(0.05f);
             playerMaterial.color = Color.white;
-            //playerMaterial.SetColor("Main Color", Color.white);
             yield return new WaitForSeconds(0.05f);
         }
 
         inVincible = false;
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "Gold")
+        {
+            gold += 1;
+            GameObject.Destroy(collider.transform.parent.gameObject);
+        }   
     }
 }
