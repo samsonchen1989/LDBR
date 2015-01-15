@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum WeaponGunState
 {
@@ -31,6 +32,8 @@ public class WeaponGun
     protected bool canFire;
 
     protected WeaponGunState state = WeaponGunState.IDLE;
+
+    protected Dictionary<UpgradeType, UpgradaProperty> upgradeData = new Dictionary<UpgradeType, UpgradaProperty>();
 
     public string Name
     {
@@ -93,6 +96,13 @@ public class WeaponGun
 
         set {
             canFire = value;
+        }
+    }
+
+    public Dictionary<UpgradeType, UpgradaProperty> UpgradeData
+    {
+        get {
+            return upgradeData;
         }
     }
 
@@ -177,6 +187,54 @@ public class WeaponGun
             }
         }
     }
+
+    public UpgradaProperty GetProperty(UpgradeType type)
+    {
+        if (upgradeData.ContainsKey(type)){
+            return upgradeData[type];
+        }
+
+        return null;
+    }
+
+    public int GetUpgradeCost(UpgradeType type)
+    {
+        if (upgradeData.ContainsKey(type)){
+            return upgradeData[type].UpgradeCost;
+        }
+        
+        return -1;
+    }
+    
+    public void Upgrade(UpgradeType type)
+    {
+        if(!upgradeData.ContainsKey(type)) {
+            Debug.Log("No such property");
+            return;
+        }
+        
+        if (!upgradeData[type].Upgrade()) {
+            Debug.Log("Max level maybe");
+            return;
+        }
+        
+        switch(type)
+        {
+        case UpgradeType.CLIP_SIZE:
+            clipSize = (int)(upgradeData[type].CurrentValue);
+            break;
+        case UpgradeType.BULLET_DAMAGE:
+            bulletDamage = upgradeData[type].CurrentValue;
+            break;
+        case UpgradeType.RELOAD_TIME:
+            reloadInterval = upgradeData[type].CurrentValue;
+            break;
+        default:
+            break;
+        }
+
+        Messenger<UpgradeType>.Invoke(MyEventType.WEAPON_UPGRADED, type);
+    }
 }
 
 public class Pistol : WeaponGun
@@ -196,6 +254,15 @@ public class Pistol : WeaponGun
         clipLeft = 5;
         ammoLeft = 10;
         canFire = true;
+
+        // Upgrade data init
+        List<LevelData> levels = new List<LevelData>();
+        levels.Add(new LevelData(0, 10, 5));
+        levels.Add(new LevelData(1, 12, 6));
+        levels.Add(new LevelData(2, 15, 10));
+        levels.Add(new LevelData(3, 20, -1));
+        UpgradaProperty update = new UpgradaProperty(levels, "Clip Size", 0);
+        upgradeData.Add(UpgradeType.CLIP_SIZE, update);
     }
 }
 

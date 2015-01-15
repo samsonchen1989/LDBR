@@ -26,13 +26,12 @@ public class PlayerEquip : PlayerBase
     // Override Awake() incase PlayerBase's Awake() called multiple times
     void Awake()
     {
-
+        ReplaceFisrtWeapon(new Pistol());
     }
 
     // Use this for initialization
     void Start()
     {
-        ReplaceFisrtWeapon(new Pistol());
         currentWeaponSlot = 1;
     }
 

@@ -30,6 +30,17 @@ public class PlayerState : PlayerBase
         }
     }
 
+    public bool CostGold(int cost)
+    {
+        if (cost > gold) {
+            Debug.Log("No enough money");
+            return false;
+        }
+
+        gold -= cost;
+        return true;
+    }
+
     public void GetDamage(float damage)
     {
         if (inVincible) {
