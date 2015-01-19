@@ -59,6 +59,14 @@ public class DialogDatabase : MonoBehaviour
         data = new List<DialogData>();
         data.Add(new DialogData(null, "Use key to open it", DialogType.DIALOG_HINT));
         dialogDatabase.Add("doorhint2", data);
+
+        data = new List<DialogData>();
+        data.Add(new DialogData("head_upgrade", "Hi, look at your little poor gun.", DialogType.DIALOG_HEAD_RIGHT));
+        data.Add(new DialogData("head_upgrade", "I can upgrade them if you can afford some gold.", DialogType.DIALOG_HEAD_RIGHT));
+        data.Add(new DialogData("head_player", "Sounds good.", DialogType.DIALOG_HEAD_LEFT));
+        dialogDatabase.Add("upgrade1", data);
+
+        //data.Add(new DialogData());
     }
 
     public List<DialogData> GetDialog(string dialogName)

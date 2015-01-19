@@ -263,6 +263,14 @@ public class Pistol : WeaponGun
         levels.Add(new LevelData(3, 20, -1));
         UpgradaProperty update = new UpgradaProperty(levels, "Clip Size", 0);
         upgradeData.Add(UpgradeType.CLIP_SIZE, update);
+
+        levels = new List<LevelData>();
+        levels.Add(new LevelData(0, 2f, 5));
+        levels.Add(new LevelData(1, 1.8f, 6));
+        levels.Add(new LevelData(2, 1.6f, 10));
+        levels.Add(new LevelData(3, 1.4f, -1));
+        update = new UpgradaProperty(levels, "Reload Time", 0);
+        upgradeData.Add(UpgradeType.RELOAD_TIME, update);
     }
 }
 
