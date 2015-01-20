@@ -8,7 +8,7 @@ public class PlayerState : PlayerBase
 
     float maxHealth = 100;
     float health = 100;
-    int gold = 0;
+    int gold = 100;
 
     bool inVincible = false;
 
@@ -33,7 +33,6 @@ public class PlayerState : PlayerBase
     public bool CostGold(int cost)
     {
         if (cost > gold) {
-            Debug.Log("No enough money");
             return false;
         }
 
@@ -84,8 +83,7 @@ public class PlayerState : PlayerBase
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Gold")
-        {
+        if (collider.tag == "Gold") {
             gold += 1;
             GameObject.Destroy(collider.transform.parent.gameObject);
         }   

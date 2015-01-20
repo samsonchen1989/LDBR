@@ -23,6 +23,27 @@ public class PlayerEquip : PlayerBase
         }
     }
 
+    public int EquipCount
+    {
+        get {
+            return guns.Count;
+        }
+    }
+
+    public WeaponGun GetWeapon(int index)
+    {
+        if (index < 0) {
+            Debug.Log("index number illegal");
+        }
+
+        if (index >= guns.Count) {
+            Debug.Log("index out of range");
+            return null;
+        }
+
+        return guns[index];
+    }
+
     // Override Awake() incase PlayerBase's Awake() called multiple times
     void Awake()
     {

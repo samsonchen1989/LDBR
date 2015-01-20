@@ -9,12 +9,16 @@ public class UpgradeNodeUI : MonoBehaviour
     public Text buttonText;
     public Button upgradeButtton;
 
+    int index;
     UpgradeType type;
     UpgradaProperty property;
+    WeaponUpgradeUI parentUI;
 
-    public void InitNodeType(UpgradeType type)
+    public void InitNodeType(UpgradeType type, int index, WeaponUpgradeUI parent)
     {
         this.type = type;
+        this.index = index;
+        this.parentUI = parent;
     }
 
     // Use this for initialization
@@ -26,31 +30,26 @@ public class UpgradeNodeUI : MonoBehaviour
         }
 
         EventTriggerListener.Get(upgradeButtton.gameObject).onClick = OnUpgradeButtonClick;
-        //upgradeButtton.onClick += 
 
         RefreshNodeUI();
     }
 
-    void OnEnable()
+    public void RefreshNodeUI()
     {
-        Messenger<UpgradeType>.AddListener(MyEventType.WEAPON_UPGRADED, WeaponUpgradeHandler);
-    }
-
-    void OnDisable()
-    {
-        Messenger<UpgradeType>.RemoveListener(MyEventType.WEAPON_UPGRADED, WeaponUpgradeHandler);
-    }
-
-    void RefreshNodeUI()
-    {
-        property = PlayerBase.Instance.PlayerEquip.CurrentWeapon.GetProperty(type);
+        property = PlayerBase.Instance.PlayerEquip.GetWeapon(index).GetProperty(type);
         if (property == null) {
             return;
         }
 
         propertyName.text = property.Name;
         level.text = string.Format("{0}, level{1}", property.CurrentValue, property.Level);
-        buttonText.text = property.UpgradeCost + "G";
+
+        if (property.IsLevelMax()) {
+            upgradeButtton.interactable = false;
+            buttonText.text = "Max";
+        } else {
+            buttonText.text = property.UpgradeCost + "G";
+        }
 
         if (PlayerBase.Instance.PlayerState.Gold < property.UpgradeCost) {
             upgradeButtton.interactable = false;
@@ -62,18 +61,18 @@ public class UpgradeNodeUI : MonoBehaviour
         if (upgradeButtton.interactable == true) {
             PlayerBase.Instance.PlayerState.CostGold(property.UpgradeCost);
             // Upgrade after the cost
-            PlayerBase.Instance.PlayerEquip.CurrentWeapon.Upgrade(type);
+            PlayerBase.Instance.PlayerEquip.GetWeapon(index).Upgrade(type);
+            parentUI.RefreshChildUpgradeNode();
+            /*
+            if (PlayerBase.Instance.PlayerState.Gold < property.UpgradeCost) {
+                upgradeButtton.interactable = false;
+            }
+
             if (property.IsLevelMax()) {
                 upgradeButtton.interactable = false;
                 buttonText.text = "Max";
             }
-        }
-    }
-
-    void WeaponUpgradeHandler(UpgradeType type)
-    {
-        if (type == this.type) {
-            RefreshNodeUI();
+            */
         }
     }
 }

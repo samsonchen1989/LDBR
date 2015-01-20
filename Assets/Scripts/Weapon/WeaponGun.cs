@@ -233,7 +233,7 @@ public class WeaponGun
             break;
         }
 
-        Messenger<UpgradeType>.Invoke(MyEventType.WEAPON_UPGRADED, type);
+        //Messenger<UpgradeType>.Invoke(MyEventType.WEAPON_UPGRADED, type);
     }
 }
 
@@ -257,9 +257,9 @@ public class Pistol : WeaponGun
 
         // Upgrade data init
         List<LevelData> levels = new List<LevelData>();
-        levels.Add(new LevelData(0, 10, 5));
-        levels.Add(new LevelData(1, 12, 6));
-        levels.Add(new LevelData(2, 15, 10));
+        levels.Add(new LevelData(0, 10, 3));
+        levels.Add(new LevelData(1, 12, 5));
+        levels.Add(new LevelData(2, 15, 7));
         levels.Add(new LevelData(3, 20, -1));
         UpgradaProperty update = new UpgradaProperty(levels, "Clip Size", 0);
         upgradeData.Add(UpgradeType.CLIP_SIZE, update);
@@ -291,5 +291,22 @@ public class Rifle : WeaponGun
         clipLeft = 30;
         ammoLeft = 60;
         canFire = true;
+
+        // Upgrade data init
+        List<LevelData> levels = new List<LevelData>();
+        levels.Add(new LevelData(0, 30, 3));
+        levels.Add(new LevelData(1, 35, 5));
+        levels.Add(new LevelData(2, 40, 7));
+        levels.Add(new LevelData(3, 50, -1));
+        UpgradaProperty update = new UpgradaProperty(levels, "Clip Size", 0);
+        upgradeData.Add(UpgradeType.CLIP_SIZE, update);
+
+        levels = new List<LevelData>();
+        levels.Add(new LevelData(0, 15f, 5));
+        levels.Add(new LevelData(1, 18f, 6));
+        levels.Add(new LevelData(2, 22f, 10));
+        levels.Add(new LevelData(3, 25f, -1));
+        update = new UpgradaProperty(levels, "Bullet Damage", 0);
+        upgradeData.Add(UpgradeType.BULLET_DAMAGE, update);
     }
 }
