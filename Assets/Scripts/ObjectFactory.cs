@@ -8,6 +8,7 @@ public class ObjectFactory : MonoBehaviour
     // GameObject to spawn
     GameObject bulletPrefab;
     GameObject goldPrefab;
+    GameObject laserPrefab;
 
     void Awake()
     {
@@ -16,19 +17,20 @@ public class ObjectFactory : MonoBehaviour
         } else {
             instance = this;
         }
-    }
 
-    // Use this for initialization
-    void Start()
-    {
         bulletPrefab = Resources.Load("pistol_bullet") as GameObject;
         if (bulletPrefab == null) {
             Debug.LogError("Fail to find pistol bullet game object.");
         }
-
+        
         goldPrefab = Resources.Load("Gold") as GameObject;
         if (goldPrefab == null) {
             Debug.LogError("Fail to find gold game object");
+        }
+        
+        laserPrefab = Resources.Load("bullet_laser") as GameObject;
+        if (laserPrefab == null) {
+            Debug.LogError("Fail to find laser bullet object");
         }
     }
 
@@ -40,6 +42,17 @@ public class ObjectFactory : MonoBehaviour
             bullet.Initialize(speed, dir, damage);
         }
 
+        return bullet;
+    }
+
+    public static Bullet SpawnLaser(Vector3 position, Vector3 dir, float speed, float damage)
+    {
+        GameObject go = GameObject.Instantiate(instance.laserPrefab, position, Quaternion.Euler(0, 0, 0)) as GameObject;
+        Bullet bullet = go.GetComponent<Bullet>();
+        if (bullet != null) {
+            bullet.Initialize(speed, dir, damage);
+        }
+        
         return bullet;
     }
 

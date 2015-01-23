@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     protected float attackDamage;
 
     protected float attackInternal;
-
+    protected float attackRange;
     protected float attackTimer = 0;
     protected bool canAttack = false;
 
@@ -17,25 +17,33 @@ public class Enemy : MonoBehaviour
 
     protected virtual bool Attack() { return false; }
 
-    void Update()
+    protected virtual void GetDamage(float damage) {}
+
+    public float Life
     {
-        if (isDead)
-        {
-            return;
+        get {
+            return life;
         }
+    }
 
-        if (!canAttack) {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= attackInternal) {
-                canAttack = true;
-            }
+    public float AttackInternal
+    {
+        get {
+            return attackInternal;
         }
+    }
 
-        if (canAttack) {
-            if (Attack()) {
-                canAttack = false;
-                attackTimer = 0f;
-            }
+    public float AttackRange
+    {
+        get {
+            return attackRange;
+        }
+    }
+
+    public float AttackDamage
+    {
+        get {
+            return attackDamage;
         }
     }
 
@@ -47,13 +55,9 @@ public class Enemy : MonoBehaviour
                 return;
             }
 
-            life -= bullet.Damage;
+            GetDamage(bullet.Damage);
             // Destroy bullet
             GameObject.Destroy(collision.gameObject);
-
-            if (life <= 0) {
-                Die();
-            }
         }
     }
 }

@@ -8,7 +8,7 @@ public class Zombie : Enemy
     public GameObject crashObject;
     private NavMeshAgent agent;
     private GameObject attackTarget;
-    private float attackRange = 1.05f;
+    private ZombieAI ai;
 
     // Use this for initialization
     void Start()
@@ -21,6 +21,12 @@ public class Zombie : Enemy
         agent = GetComponent<NavMeshAgent>();
         if (agent == null) {
             Debug.LogError("Fail to find enemy navMeshAgent");
+            return;
+        }
+
+        ai = GetComponent<ZombieAI>();
+        if (ai == null) {
+            Debug.LogError("Did this zombie forget to take an AI?");
             return;
         }
 
@@ -40,6 +46,7 @@ public class Zombie : Enemy
         life = 30f;
         attackDamage = 20f;
         attackInternal = 3f;
+        attackRange = 1.05f;
     }
     
     IEnumerator DestroySelf()
@@ -61,17 +68,19 @@ public class Zombie : Enemy
         crashObject.SetActive(true);
         GameObject.Destroy(enemyObject);
         // Disable NavMeshAgent first
+        ai.enabled = false;
         agent.enabled = false;
         StartCoroutine(DestroySelf());
     }
 
-    protected override bool Attack()
+    protected override void GetDamage(float damage)
     {
-        if (Vector3.Distance(this.transform.position, attackTarget.transform.position) < attackRange) {
-            attackTarget.GetComponent<PlayerState>().GetDamage(attackDamage);
-            return true;
-        }
+        // Get damage response, color flash
+        GetComponent<PingPongShaderColor>().Play();
 
-        return false;
+        life -= damage;
+        if (life <= 0) {
+            Die();
+        }
     }
 }
